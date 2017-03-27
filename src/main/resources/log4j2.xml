@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+	<Appenders>
+		<RollingFile name="INFO_FILE" fileName="logs/fb_info.log"
+			append="true" filePattern="logs/fb_info.log.%d{yyyyMMddHH}">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}%6p [%F:%L] - %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+
+		</RollingFile>
+
+		<RollingFile name="ERROR_FILE" fileName="logs/fb_error.log"
+			append="true" filePattern="logs/fb_error.log.%d{yyyyMMddHH}">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}%6p [%F:%L] - %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+
+
+		<RollingFile name="CONTROLLER_FILE" fileName="logs/controller302.log"
+			append="true" filePattern="logs/controller302.log.%d{yyyyMMddHH}">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}%6p [%F:%L] - %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+
+		<RollingFile name="VOLUMM_FILE" fileName="logs/voluumAPI.log"
+			append="true" filePattern="logs/voluumAPI.log.%d{yyyyMMddHH}">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}%6p [%F:%L] - %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+
+
+		<RollingFile name="SERVICE_302_FILE" fileName="logs/service302.log"
+			append="true" filePattern="logs/service302.log.%d{yyyyMMddHH}">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}%6p [%F:%L] - %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+
+		<RollingFile name="FREQUENCY_FILE" fileName="logs/frequencyUtils.log"
+			append="true" filePattern="logs/frequencyUtils.log.%d{yyyyMMddHH}">
+			<PatternLayout>
+				<Pattern>%d{yyyy-MM-dd HH:mm:ss,SSS}%6p [%F:%L] - %m%n</Pattern>
+			</PatternLayout>
+			<Filters>
+				<ThresholdFilter level="warn" onMatch="DENY"
+					onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT"
+					onMismatch="DENY" />
+			</Filters>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="1" />
+		</RollingFile>
+
+
+	</Appenders>
+
+	<Loggers>
+		<root level="info" includeLocation="true">
+			<appender-ref ref="INFO_FILE" />
+			<appender-ref ref="ERROR_FILE" />
+		</root>
+		<logger name="com.altamob.ads.miniadserver.controller.AbstractController"
+			level="info" additivity="false" includeLocation="true">
+			<appender-ref ref="CONTROLLER_FILE" />
+		</logger>
+
+		<logger
+			name="com.altamob.ads.miniadserver.business.voluum.impl.VoluumAPIImpl"
+			level="info" additivity="false" includeLocation="true">
+			<appender-ref ref="VOLUMM_FILE" />
+		</logger>
+
+		<logger
+			name="com.altamob.ads.miniadserver.business.service.impl.offer.Offer302ServiceImplV2"
+			level="info" additivity="false" includeLocation="true">
+			<appender-ref ref="SERVICE_302_FILE" />
+		</logger>
+
+
+		<logger name="com.altamob.ads.miniadserver.common.utils.AmmFrequencyUtils"
+			level="info" additivity="false" includeLocation="true">
+			<appender-ref ref="FREQUENCY_FILE" />
+		</logger>
+	</Loggers>
+
+</Configuration>
