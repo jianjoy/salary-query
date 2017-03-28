@@ -38,7 +38,7 @@ public class BatchImportDataTask implements Runnable{
 		File f = null;
 		try {
 			while((f=fileQueue.take())!=null){
-				
+				Business.getLogger().info("parse file:{}",f);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();

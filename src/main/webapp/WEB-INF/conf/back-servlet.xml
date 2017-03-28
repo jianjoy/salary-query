@@ -56,11 +56,14 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
+	
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
 	<mvc:resources location="/WEB-INF/img/" mapping="/img/**" />
+	<mvc:resources location="/WEB-INF/misc/" mapping="/misc/**" />
+	
 
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8"/>
 	<mvc:default-servlet-handler />
 </beans> 
