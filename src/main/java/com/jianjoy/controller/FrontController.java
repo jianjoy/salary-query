@@ -72,7 +72,7 @@ public class FrontController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/index.do", method = {RequestMethod.POST,RequestMethod.GET })
-	public static ModelAndView index(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public static ModelAndView index(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView mv = new ModelAndView();
 		String authToken = (String)request.getSession(true).getAttribute("x-token");
 		String viewName = request.getParameter("t");

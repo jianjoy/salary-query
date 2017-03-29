@@ -1,22 +1,16 @@
 package com.jianjoy.model;
 
 /**
- * 工资信息
+ * 工资信息实体封装
  * @author zhoujian
  *
  */
-public class SalaryInfo {
+public class SalaryInfoExcelModel {
 
 	/**
-	 * 自增标识
+	 * 员工ID
 	 */
-	private long id;
-	
-	
-	/**
-	 * 员工信息
-	 */
-	private EmployeeInfo employeeInfo;
+	private int empId;
 	
 	
 	/**
@@ -58,34 +52,26 @@ public class SalaryInfo {
 	private double personalIncomeTax;
 	
 	/**
-	 * 个人公积金
-	 */
-	private double personalProvidentFund;
-	
-	/**
 	 * 薪资日期
 	 */
 	private String salaryDate;
+	
+	/**
+	 * 个人公积金
+	 */
+	private double personalProvidentFund;
 	
 	/**
 	 * 实际工资
 	 */
 	private double realSalary;
 
-	public long getId() {
-		return id;
+	public int getEmpId() {
+		return empId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public EmployeeInfo getEmployeeInfo() {
-		return employeeInfo;
-	}
-
-	public void setEmployeeInfo(EmployeeInfo employeeInfo) {
-		this.employeeInfo = employeeInfo;
+	public void setEmpId(int empId) {
+		this.empId = empId;
 	}
 
 	public double getSalary() {
@@ -132,7 +118,8 @@ public class SalaryInfo {
 		return personMedicalInsurancePayment;
 	}
 
-	public void setPersonMedicalInsurancePayment(double personMedicalInsurancePayment) {
+	public void setPersonMedicalInsurancePayment(
+			double personMedicalInsurancePayment) {
 		this.personMedicalInsurancePayment = personMedicalInsurancePayment;
 	}
 
@@ -167,5 +154,7 @@ public class SalaryInfo {
 	public void setRealSalary(double realSalary) {
 		this.realSalary = realSalary;
 	}
+	
+	
 	
 }
