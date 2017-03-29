@@ -61,6 +61,7 @@
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
 	<mvc:resources location="/WEB-INF/img/" mapping="/img/**" />
 	<mvc:resources location="/WEB-INF/misc/" mapping="/misc/**" />
+	<mvc:resources location="/WEB-INF/themes/" mapping="/themes/**" />
 	
 
 	<bean id="multipartResolver"

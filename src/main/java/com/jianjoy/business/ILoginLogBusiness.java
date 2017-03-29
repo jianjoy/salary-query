@@ -1,9 +1,6 @@
 package com.jianjoy.business;
 
-import java.util.List;
-
 import com.jianjoy.model.Account;
-import com.jianjoy.model.BusinessResult;
 import com.jianjoy.model.LoginLog;
 import com.jianjoy.model.Pager;
 
@@ -16,6 +13,6 @@ public interface ILoginLogBusiness {
 
 	void save(LoginLog log);
 	
-	BusinessResult<List<LoginLog>> query(Account accountInfo,String ip,String startTime,String endTime,Pager pager);
+	String query(Account accountInfo,String ip,String startTime,String endTime,Pager pager);
 	
 }

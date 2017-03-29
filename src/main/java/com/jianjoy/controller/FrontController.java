@@ -24,13 +24,17 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jianjoy.business.AccountBusinessImpl;
 import com.jianjoy.business.BatchImportDataTask;
 import com.jianjoy.business.IAccountBusiness;
+import com.jianjoy.business.ILoginLogBusiness;
+import com.jianjoy.business.LoginLogBusinessImpl;
 import com.jianjoy.log.Business;
 import com.jianjoy.model.Account;
 import com.jianjoy.model.BusinessResult;
 import com.jianjoy.model.FileMeta;
 import com.jianjoy.model.FrontApiResponse;
+import com.jianjoy.model.Pager;
 import com.jianjoy.utils.ClientIpUtils;
 import com.jianjoy.utils.ConfigUtils;
+import com.jianjoy.utils.StringUtils;
 
 @Controller
 @RequestMapping(value = "/front")
@@ -41,6 +45,8 @@ public class FrontController {
 	}
 	
 	private IAccountBusiness accountBiz = new AccountBusinessImpl();
+	
+	private ILoginLogBusiness loginLogBiz = new LoginLogBusinessImpl();
 
 	/**
 	 * 登录
@@ -142,6 +148,35 @@ public class FrontController {
 			Business.getLogger().error(e);
 		}
 		return new ModelAndView("/upload");
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/api/queryLog.do", method = {RequestMethod.POST,RequestMethod.GET })
+	public String getLoginLog(HttpServletRequest request,HttpServletResponse response){
+		int recordIndex = StringUtils.hasLength(request.getParameter("jtStartIndex"))?Integer.parseInt(request.getParameter("jtStartIndex")):-1;
+		int pageSize = StringUtils.hasLength(request.getParameter("jtPageSize"))?Integer.parseInt(request.getParameter("jtPageSize")):10;
+		Account accountInfo = new Account();
+		String uname= request.getParameter("uname");
+		if(StringUtils.hasLength(uname)){
+			accountInfo.setUname(uname);
+		}
+		String accountId = request.getParameter("accountId");
+		if(StringUtils.hasLength(accountId)){
+			accountInfo.setId(Integer.parseInt(accountId));
+		}
+		String ip = request.getParameter("ip");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		Pager pager = buildPager(recordIndex, pageSize);
+		return loginLogBiz.query(accountInfo, ip, startTime, endTime, pager);
+	}
+
+	private Pager buildPager(int recordIndex, int pageSize) {
+		Pager pager = new Pager();
+		int currentPage = recordIndex<=0?1:(recordIndex/pageSize)+1;
+		pager.setCurrentPage(currentPage);
+		pager.setPageSize(pageSize);
+		return pager;
 	}
 	
 	/**

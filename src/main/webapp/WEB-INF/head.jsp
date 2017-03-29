@@ -138,7 +138,7 @@ body {
 								class="icon-eye-open"></i><span class="hidden-tablet">账号信息维护</span></a></li>
 						<li><a class="ajax-link" href="form.html"><i
 								class="icon-edit"></i><span class="hidden-tablet">员工信息维护</span></a></li>
-						<li><a class="ajax-link" href="chart.html"><i
+						<li><a class="ajax-link" href="front/api/index.do?t=loginlog"><i
 								class="icon-list-alt"></i><span class="hidden-tablet">登录日志信息</span></a></li>
 						<li><a class="ajax-link" href="front/api/index.do?t=upload"><i
 								class="icon-font"></i><span class="hidden-tablet">工资信息导入</span></a></li>
