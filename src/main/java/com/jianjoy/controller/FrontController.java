@@ -3,12 +3,9 @@ package com.jianjoy.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.UUID;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -19,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,9 +26,7 @@ import com.jianjoy.business.BatchImportDataTask;
 import com.jianjoy.business.IAccountBusiness;
 import com.jianjoy.log.Business;
 import com.jianjoy.model.Account;
-import com.jianjoy.model.AccountRoleType;
 import com.jianjoy.model.BusinessResult;
-import com.jianjoy.model.EmployeeInfo;
 import com.jianjoy.model.FileMeta;
 import com.jianjoy.model.FrontApiResponse;
 import com.jianjoy.utils.ClientIpUtils;
@@ -61,20 +54,12 @@ public class FrontController {
 		String ip = ClientIpUtils.getRemoteIp(request);
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
-//		BusinessResult<Account> result = accountBiz.login(user, pass, ip);
-//		if(result.getData()!=null){
-		    BusinessResult<Account> result = new BusinessResult<>();
-		    Account account = new Account();
-		    account.setId(1);
-		    account.setUname("admin");
-		    account.setRoleType(AccountRoleType.ADMIN);
-		    EmployeeInfo e = new EmployeeInfo();
-		    account.setEmployeeInfo(e);
-		    result.setData(account);
+		BusinessResult<Account> result = accountBiz.login(user, pass, ip);
+		if(result.getData()!=null){
 			HttpSession session = request.getSession(true);
 			session.setAttribute("x-token", UUID.randomUUID().toString());
 			session.setAttribute("accountRole", result.getData());
-//		}
+		}
 		return renderJson(getResult(result));
 	}
 	
