@@ -2,11 +2,16 @@ package com.jianjoy.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.List;
-import com.jianjoy.log.Business;
-import com.jianjoy.model.SalaryInfoExcelModel;
 
-public class SalaryInfoDaoImpl implements ISalaryInfoDao {
+import com.jianjoy.dao.dbbean.SalaryInfoDbDataModel;
+import com.jianjoy.log.Business;
+import com.jianjoy.model.Pager;
+import com.jianjoy.model.SalaryInfoExcelModel;
+import com.jianjoy.utils.StringUtils;
+
+public class SalaryInfoDaoImpl extends BasePageDao implements ISalaryInfoDao {
 
 	@Override
 	public int saveData(List<SalaryInfoExcelModel> ml) {
@@ -51,5 +56,29 @@ public class SalaryInfoDaoImpl implements ISalaryInfoDao {
 		}
 		return rows;
 	}
+
+	@Override
+	public List<SalaryInfoDbDataModel> query(int empId, String startDate,
+			String endDate, Pager pager) {
+		StringBuilder sqlBuilder = new StringBuilder("select id,emp_id,salary,bonus,absent_salary_deduction,sick_leave_salary_deduction,personal_pension_payment,personal_medical_insurance_payment,personal_provident_fund_payment,personal_income_tax,real_salary,salary_date from salary_info where 1=1 ");
+		List<Object> params = new ArrayList<>();
+		String sql = sqlBuilder.toString();
+		if(empId>0){
+			sqlBuilder.append(" and emp_id= "+empId);
+			params.add(empId);
+		}
+		if(StringUtils.hasLength(startDate)){
+			sqlBuilder.append(" and salary_date >= '"+startDate+"'");
+			params.add(startDate);
+		}
+		if(StringUtils.hasLength(endDate)){
+			sqlBuilder.append(" and salary_date <= '"+endDate+"'");
+			params.add(endDate);
+		}
+		return findByPager(SalaryInfoDbDataModel.class, sql, params, pager, true);
+	}
+	
+	
+	
 
 }

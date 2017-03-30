@@ -7,6 +7,8 @@ package com.jianjoy.model;
  */
 public class SalaryInfoExcelModel {
 
+	private long id;
+	
 	/**
 	 * 员工ID
 	 */
@@ -154,7 +156,14 @@ public class SalaryInfoExcelModel {
 	public void setRealSalary(double realSalary) {
 		this.realSalary = realSalary;
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	
 	
 }

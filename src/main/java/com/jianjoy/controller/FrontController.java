@@ -25,7 +25,9 @@ import com.jianjoy.business.AccountBusinessImpl;
 import com.jianjoy.business.BatchImportDataTask;
 import com.jianjoy.business.IAccountBusiness;
 import com.jianjoy.business.ILoginLogBusiness;
+import com.jianjoy.business.ISalaryInfoBusiness;
 import com.jianjoy.business.LoginLogBusinessImpl;
+import com.jianjoy.business.SalaryInfoBusinessImpl;
 import com.jianjoy.log.Business;
 import com.jianjoy.model.Account;
 import com.jianjoy.model.BusinessResult;
@@ -47,6 +49,8 @@ public class FrontController {
 	private IAccountBusiness accountBiz = new AccountBusinessImpl();
 	
 	private ILoginLogBusiness loginLogBiz = new LoginLogBusinessImpl();
+	
+	private ISalaryInfoBusiness salaryInfoBiz = new SalaryInfoBusinessImpl();
 
 	/**
 	 * 登录
@@ -78,12 +82,12 @@ public class FrontController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/index.do", method = {RequestMethod.POST,RequestMethod.GET })
-	public static ModelAndView index(HttpServletRequest request, HttpServletResponse response){
+	public  ModelAndView index(HttpServletRequest request, HttpServletResponse response){
 		ModelAndView mv = new ModelAndView();
 		String authToken = (String)request.getSession(true).getAttribute("x-token");
 		String viewName = request.getParameter("t");
 		if(authToken!=null&&authToken.trim().length()>0){
-			mv.setViewName(viewName!=null&&viewName.trim().length()>0?"/"+viewName:"/index");
+			mv.setViewName(viewName!=null&&viewName.trim().length()>0?"/"+viewName:"/salaryinfo");
 		}else{
 			mv.setViewName("/login");
 		}
@@ -99,7 +103,7 @@ public class FrontController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/logout.do", method = {RequestMethod.POST,RequestMethod.GET })
-	public static ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
+	public  ModelAndView logout(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession();
 		if(session!=null){
 		  session.invalidate();
@@ -107,14 +111,34 @@ public class FrontController {
 		return new ModelAndView("/login");
 	}
 	
-	private static FrontApiResponse getErrorResult(String msg) {
+	
+	
+	/**
+	 * 获取工资信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/api/getSalaryList.do", method = {RequestMethod.POST,RequestMethod.GET })
+	public String getSalaryInfoList(HttpServletRequest request,HttpServletResponse response){
+		int recordIndex = StringUtils.hasLength(request.getParameter("jtStartIndex"))?Integer.parseInt(request.getParameter("jtStartIndex")):-1;
+		int pageSize = StringUtils.hasLength(request.getParameter("jtPageSize"))?Integer.parseInt(request.getParameter("jtPageSize")):10;
+		Account account = (Account)request.getSession().getAttribute("accountRole");
+		String beginTime = request.getParameter("beginDate");
+		String endTime = request.getParameter("endDate");
+		Pager pager = buildPager(recordIndex, pageSize);
+		return salaryInfoBiz.query(account.getEmployeeInfo().getId(), beginTime, endTime, pager);
+	}
+	
+	private FrontApiResponse getErrorResult(String msg) {
 		FrontApiResponse response = new FrontApiResponse();
 		response.setStatus("error");
 		response.setMessage(msg);
 		return response;
 	}
 	
-	private static <T> FrontApiResponse getResult(BusinessResult<T> result) {
+	private  <T> FrontApiResponse getResult(BusinessResult<T> result) {
 		FrontApiResponse response = new FrontApiResponse();
 		if (result.getError() != null) {
 			response.setStatus("error");
