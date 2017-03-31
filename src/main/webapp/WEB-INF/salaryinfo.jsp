@@ -3,12 +3,48 @@
 <jsp:include page="head.jsp" />
 <div id="content" class="span10">
 	<!-- content starts -->
+  <div class="row-fluid sortable">
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-edit"></i>工资信息检索</h2>
+						<div class="box-icon">
+							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<form class="form-horizontal">
+							<fieldset>
+							 
+							  <div class="control-group">
+							  <label class="control-label" for="date01">开始时间</label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="date01" name="beginDate">
+							  </div>
+							</div>
+							
+						     <div class="control-group">
+							  <label class="control-label" for="date01">结束时间时间</label>
+							  <div class="controls">
+								<input type="text" class="input-xlarge datepicker" id="date02" name="endDate">
+							  </div>
+							</div>
+							
+							  <div class="form-actions">
+								<button type="button" class="btn btn-primary" onclick="search()">检索</button>
+								<button class="btn" type="reset">重置</button>
+							  </div>
+							</fieldset>
+						</form>
+						
+							<div style="text-align: center;">
+	                       	<div id="jtcontainer" style="width:60%"></div>
+	                        </div>
+					</div>
+				</div><!--/span-->
 
-
-
-	<div style="text-align: center;">
-		<div id="jtcontainer" style="width:60%"></div>
-	</div>
+			</div><!--/row-->
 
 
 	<!-- content ends -->
@@ -83,6 +119,20 @@
 				
 			}
 		});
+		$("#date01").datepicker("option", "dateFormat","yy-mm");
+		$("#date02").datepicker( "option", "dateFormat","yy-mm");
 		$('#jtcontainer').jtable('load');
+		
 	});
+	
+		function search(){
+		$('#jtcontainer').jtable('load',
+				{
+			        beginDate:$("input[name='beginDate']").val(),
+			        endDate:$("input[name='endDate']").val()
+			        
+				}
+		);
+	}
+	
 </script>

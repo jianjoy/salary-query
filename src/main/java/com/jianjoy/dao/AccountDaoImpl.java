@@ -15,7 +15,7 @@ public class AccountDaoImpl implements IAccountDao {
 	@Override
 	public Account getAccount(String user, String md5Pass) {
 		Account account = null;
-		String sql = "select account.id as aid,account.uname as uname,account.account_role_type as roleType,employee_info.department as dp,employee_info.identity_no,employee_info.sex as sex,employee_info.email as email,employee_info.name as realName from account inner join employee_info on employee_info.id=account.emp_id where uname=? and pass=? and status=1";
+		String sql = "select account.id as aid,account.uname as uname,account.account_role_type as roleType,employee_info.department as dp,employee_info.identity_no,employee_info.sex as sex,employee_info.email as email,employee_info.name as realName,employee_info.id as eid from account inner join employee_info on employee_info.id=account.emp_id where uname=? and pass=? and status=1";
 		DBBean bean = new DBBean();
 		try{
 			Connection conn = JDBCUtils.connect();
@@ -39,6 +39,7 @@ public class AccountDaoImpl implements IAccountDao {
 				emp.setSex(rs.getInt(6));
 				emp.setEmail(rs.getString(7));
 				emp.setName(rs.getString(8));
+				emp.setId(rs.getInt(9));
 			}
 		}catch(Exception e){
 			DbAccess.getLogger().error(e);

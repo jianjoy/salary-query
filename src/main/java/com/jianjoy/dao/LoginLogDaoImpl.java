@@ -38,24 +38,19 @@ public class LoginLogDaoImpl extends BasePageDao implements ILoginLogDao{
 		if(accountInfo!=null){
 			if(accountInfo.getId()>0){
 				sqlBuilder.append(" and acc.id=").append(accountInfo.getId());
-				params.add(accountInfo.getId());
 			}
 			if(StringUtils.hasLength(accountInfo.getUname())){
 				sqlBuilder.append(" and acc.uname like '%"+accountInfo.getUname()+"%'");
-				params.add(accountInfo.getUname());
 			}
 		}
 		if(StringUtils.hasLength(ip)){
 			sqlBuilder.append(" and log.login_ip like '%"+ip+"%'");
-			params.add(ip);
 		}
 		if(StringUtils.hasLength(startTime)){
 			sqlBuilder.append(" and log.login_time >= '"+startTime+"' ");
-			params.add(startTime);
 		}
 		if(StringUtils.hasLength(endTime)){
 			sqlBuilder.append(" and log.login_time <= '"+endTime+"' ");
-			params.add(endTime);
 		}
 		return findByPager(LoginLogDbDataModel.class, sqlBuilder.toString(), params, pager, Boolean.TRUE);
 	}

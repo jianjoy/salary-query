@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jianjoy.dao.dbbean.AbstractDbDataBean;
+import com.jianjoy.log.DbAccess;
 import com.jianjoy.model.Pager;
 
 public abstract class BasePageDao implements IPageDao {
@@ -33,6 +34,7 @@ public abstract class BasePageDao implements IPageDao {
 			}
 			String formatSql = sql.substring(endIndex);
 			countSql = "select count(1) from ( select 1 " + formatSql+") a";
+			DbAccess.getLogger().info(countSql);
 			if (desc != null && desc.booleanValue()) {
 				execSql += " order by id desc ";
 			}

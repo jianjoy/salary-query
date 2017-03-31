@@ -62,23 +62,23 @@ public class SalaryInfoDaoImpl extends BasePageDao implements ISalaryInfoDao {
 			String endDate, Pager pager) {
 		StringBuilder sqlBuilder = new StringBuilder("select id,emp_id,salary,bonus,absent_salary_deduction,sick_leave_salary_deduction,personal_pension_payment,personal_medical_insurance_payment,personal_provident_fund_payment,personal_income_tax,real_salary,salary_date from salary_info where 1=1 ");
 		List<Object> params = new ArrayList<>();
-		String sql = sqlBuilder.toString();
 		if(empId>0){
 			sqlBuilder.append(" and emp_id= "+empId);
-			params.add(empId);
 		}
 		if(StringUtils.hasLength(startDate)){
 			sqlBuilder.append(" and salary_date >= '"+startDate+"'");
-			params.add(startDate);
 		}
 		if(StringUtils.hasLength(endDate)){
 			sqlBuilder.append(" and salary_date <= '"+endDate+"'");
-			params.add(endDate);
 		}
+		System.out.println(sqlBuilder);		
+		String sql = sqlBuilder.toString();
 		return findByPager(SalaryInfoDbDataModel.class, sql, params, pager, true);
 	}
 	
-	
+	public static void main(String[] args) {
+		new SalaryInfoDaoImpl().query(1, "2017-02", "2017-03", new Pager());
+	}
 	
 
 }
