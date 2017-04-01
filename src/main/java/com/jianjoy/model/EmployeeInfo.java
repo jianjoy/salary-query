@@ -1,5 +1,6 @@
 package com.jianjoy.model;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 /**
@@ -28,7 +29,7 @@ public class EmployeeInfo {
 	/**
 	 * 注册日期
 	 */
-	private String regDate;
+	private Date regDate;
 	
 	/**
 	 * 员工姓名
@@ -76,11 +77,11 @@ public class EmployeeInfo {
 		this.identityNo = identityNo;
 	}
 
-	public String getRegDate() {
+	public Date getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(String regDate) {
+	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 

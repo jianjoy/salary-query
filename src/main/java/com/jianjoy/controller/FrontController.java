@@ -23,7 +23,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jianjoy.business.AccountBusinessImpl;
 import com.jianjoy.business.BatchImportDataTask;
+import com.jianjoy.business.EmployeBusinessImpl;
 import com.jianjoy.business.IAccountBusiness;
+import com.jianjoy.business.IEmployeeBusiness;
 import com.jianjoy.business.ILoginLogBusiness;
 import com.jianjoy.business.ISalaryInfoBusiness;
 import com.jianjoy.business.LoginLogBusinessImpl;
@@ -51,6 +53,8 @@ public class FrontController {
 	private ILoginLogBusiness loginLogBiz = new LoginLogBusinessImpl();
 	
 	private ISalaryInfoBusiness salaryInfoBiz = new SalaryInfoBusinessImpl();
+	
+	private IEmployeeBusiness employeeBiz= new EmployeBusinessImpl();
 
 	/**
 	 * 登录
@@ -130,6 +134,21 @@ public class FrontController {
 		Pager pager = buildPager(recordIndex, pageSize);
 		return salaryInfoBiz.query(account.getEmployeeInfo().getId(), beginTime, endTime, pager);
 	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/api/getEmployeeInfos.do", method = {RequestMethod.POST,RequestMethod.GET })
+	public String getEmployeeInfos(HttpServletRequest request,HttpServletResponse response){
+		int recordIndex = StringUtils.hasLength(request.getParameter("jtStartIndex"))?Integer.parseInt(request.getParameter("jtStartIndex")):-1;
+		int pageSize = StringUtils.hasLength(request.getParameter("jtPageSize"))?Integer.parseInt(request.getParameter("jtPageSize")):10;
+		String department = request.getParameter("department");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		Pager pager = buildPager(recordIndex, pageSize);
+		return employeeBiz.query(department, name, email, pager);
+	}
+	
 	
 	private FrontApiResponse getErrorResult(String msg) {
 		FrontApiResponse response = new FrontApiResponse();

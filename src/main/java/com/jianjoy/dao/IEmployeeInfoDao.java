@@ -1,5 +1,10 @@
 package com.jianjoy.dao;
 
+import java.util.List;
+
+import com.jianjoy.dao.dbbean.EmployeeInfoDbDataModel;
+import com.jianjoy.model.Pager;
+
 /**
  * 员工信息数据操作接口
  * @author zhoujian
@@ -7,4 +12,7 @@ package com.jianjoy.dao;
  */
 public interface IEmployeeInfoDao {
 
+	
+	List<EmployeeInfoDbDataModel> query(String department,String name,String email,Pager pager);
+	
 }
