@@ -44,20 +44,38 @@ import com.jianjoy.utils.ConfigUtils;
 import com.jianjoy.utils.Md5Utils;
 import com.jianjoy.utils.StringUtils;
 
+/**
+ * api 服务
+ * @author zhoujian
+ *
+ */
 @Controller
 @RequestMapping(value = "/front")
 public class FrontController {
 
 	static {
+		//后台处理薪资信息批量保存任务
 		new Thread(BatchImportDataTask.getInstance(), "BatchImportDataTask").start();
 	}
 
+	/**
+	 * 账户业务服务
+	 */
 	private IAccountBusiness accountBiz = new AccountBusinessImpl();
 
+	/**
+	 * 登录日志业务服务
+	 */
 	private ILoginLogBusiness loginLogBiz = new LoginLogBusinessImpl();
 
+	/**
+	 * 薪资信息服务
+	 */
 	private ISalaryInfoBusiness salaryInfoBiz = new SalaryInfoBusinessImpl();
 
+	/**
+	 * 员工信息服务
+	 */
 	private IEmployeeBusiness employeeBiz = new EmployeBusinessImpl();
 
 	/**
@@ -142,6 +160,13 @@ public class FrontController {
 		return salaryInfoBiz.query(account.getEmployeeInfo().getId(), beginTime, endTime, pager);
 	}
 
+	
+	/**
+	 * 检索员工列表信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/getEmployeeInfos.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public String getEmployeeInfos(HttpServletRequest request, HttpServletResponse response) {
@@ -156,6 +181,11 @@ public class FrontController {
 		return employeeBiz.query(department, name, email, pager);
 	}
 
+	/**
+	 * 保存员工信息
+	 * @param request
+	 * @param response
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/saveEmployee.do", method = { RequestMethod.POST })
 	public void saveEmployee(HttpServletRequest request, HttpServletResponse response) {
@@ -204,6 +234,11 @@ public class FrontController {
 		return accountBiz.getAccountList(pager);
 	}
 
+	/**
+	 * 构造错误信息响应
+	 * @param msg
+	 * @return
+	 */
 	private FrontApiResponse getErrorResult(String msg) {
 		FrontApiResponse response = new FrontApiResponse();
 		response.setStatus("error");
@@ -211,6 +246,11 @@ public class FrontController {
 		return response;
 	}
 
+	/**
+	 * 构造响应
+	 * @param result
+	 * @return
+	 */
 	private <T> FrontApiResponse getResult(BusinessResult<T> result) {
 		FrontApiResponse response = new FrontApiResponse();
 		if (result.getError() != null) {
@@ -222,6 +262,11 @@ public class FrontController {
 		return response;
 	}
 
+	/**
+	 * 上传工资信息excel文件
+	 * @param file
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/upload.do", method = RequestMethod.POST)
 	public ModelAndView upload(@RequestParam("file") CommonsMultipartFile file) {
@@ -247,6 +292,12 @@ public class FrontController {
 		return new ModelAndView("/upload");
 	}
 
+	/**
+	 * 修改账户密码
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/api/updatePass.do",method = {RequestMethod.POST})
 	public String updatePass(HttpServletRequest request,HttpServletResponse response){
@@ -265,6 +316,12 @@ public class FrontController {
 	}
 	
 	
+	/**
+	 * 检索登录日志
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/queryLog.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public String getLoginLog(HttpServletRequest request, HttpServletResponse response) {
@@ -288,6 +345,11 @@ public class FrontController {
 		return loginLogBiz.query(accountInfo, ip, startTime, endTime, pager);
 	}
 
+	/**
+	 * 添加账号
+	 * @param request
+	 * @param response
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/addAccount.do", method = { RequestMethod.POST })
 	public void addAccount(HttpServletRequest request,HttpServletResponse response){
@@ -303,6 +365,12 @@ public class FrontController {
 		}
 	}
 	
+	/**
+	 * 逻辑删除账号
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/api/deleteAccount.do", method = { RequestMethod.POST,RequestMethod.GET })
 	public String pauseAccount(HttpServletRequest request,HttpServletResponse response){
@@ -320,6 +388,13 @@ public class FrontController {
 		return renderJson(jsonObjectResult);
 	}
 	
+	
+	/**
+	 * 构造分页对象
+	 * @param recordIndex
+	 * @param pageSize
+	 * @return
+	 */
 	private Pager buildPager(int recordIndex, int pageSize) {
 		Pager pager = new Pager();
 		int currentPage = recordIndex <= 0 ? 1 : (recordIndex / pageSize) + 1;
@@ -328,22 +403,9 @@ public class FrontController {
 		return pager;
 	}
 
-	/**
-	 * @see http://www.simplecodestuffs.com/pagination-in-java-web-applications-using-jquery-jtable-plugin/
-	 * @param obj
-	 * @return
-	 */
-
-	/**
-	 * @see http://hmkcode.com/spring-mvc-jquery-file-upload-multiple-dragdrop-progress/
-	 * @param obj
-	 * @return
-	 */
-
-	
 	
 	/**
-	 * render json format
+	 * 渲染返回json格式数据
 	 * @param obj
 	 * @return
 	 */
