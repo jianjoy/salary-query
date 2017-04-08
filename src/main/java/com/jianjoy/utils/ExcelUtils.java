@@ -19,8 +19,6 @@ import com.jianjoy.log.Business;
  *
  */
 public class ExcelUtils {
-	
-	
 	/**
 	 * 解析excel文件数据
 	 * @param excelFile
@@ -64,8 +62,6 @@ public class ExcelUtils {
 		}
 		return dataList;
 	}
-
-
 	private static String getCellValue(Cell cell) {
 		String cellValue = "";
 		DecimalFormat df = new DecimalFormat("#.##");  
@@ -85,8 +81,6 @@ public class ExcelUtils {
 		}
 		return cellValue;
 	}
-
-	
 	public static void main(String[] args) {
 		List<String[]> dataList = ExcelUtils.parseData(new File("model.xlsx"));
 		System.out.println(Arrays.toString(dataList.get(1)));

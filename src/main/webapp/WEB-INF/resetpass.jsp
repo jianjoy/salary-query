@@ -83,7 +83,7 @@ if(authToken!=null&&authToken.trim().length()>0){
 							<div class="clearfix"></div>
 							<div class="clearfix"></div>
 							<p class="center span5">
-							<button type="button" class="btn btn-primary" onclick="login()">登&nbsp;&nbsp;&nbsp;录</button>
+							<button type="button" class="btn btn-primary" onclick="login()">重置密码</button>
 							</p>
 						</fieldset>
 					</form>

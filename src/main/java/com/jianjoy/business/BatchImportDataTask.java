@@ -45,7 +45,6 @@ public class BatchImportDataTask implements Runnable{
 		}
 	}
 
-
 	@Override
 	public void run() {
 		File f = null;
@@ -77,7 +76,6 @@ public class BatchImportDataTask implements Runnable{
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	/**
