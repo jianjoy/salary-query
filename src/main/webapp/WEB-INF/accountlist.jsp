@@ -116,7 +116,6 @@
 
 <jsp:include page="foot.jsp"></jsp:include>
 <script type="text/javascript">
-	var uname = '';
 	$(document).ready(function() {
 		$('#jtcontainer').jtable({
 			title : '账号列表',
