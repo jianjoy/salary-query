@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 import com.jianjoy.dao.AccountDaoImpl;
 import com.jianjoy.dao.IAccountDao;
 import com.jianjoy.dao.ILoginLogDao;
@@ -17,6 +19,8 @@ import com.jianjoy.model.EmployeeInfo;
 import com.jianjoy.model.JTablePage;
 import com.jianjoy.model.LoginLog;
 import com.jianjoy.model.Pager;
+import com.jianjoy.utils.ConfigUtils;
+import com.jianjoy.utils.MailSender;
 import com.jianjoy.utils.Md5Utils;
 import com.jianjoy.utils.StringUtils;
 
@@ -49,8 +53,14 @@ public class AccountBusinessImpl implements IAccountBusiness {
 
 
 	@Override
-	public BusinessResult<Boolean> resetPass(int accountId) {
-		return null;
+	public BusinessResult<Account> validateAccount(String email) {
+		BusinessResult<Account> result = new BusinessResult<>();
+		Account acc = accountDao.getAccount(email);
+		if(acc==null){
+			result.setError("错误账户，您无权限重置密码!");
+		}
+		result.setData(acc);
+		return result;
 	}
 
 	@Override
@@ -101,6 +111,19 @@ public class AccountBusinessImpl implements IAccountBusiness {
 		accountDao.updateAccountStatus(accId, status);
 		result.setData(true);
 		return result;
+	}
+
+
+
+	@Override
+	public String sendResetPassMail(String email) {
+		String uuid = UUID.randomUUID().toString();
+		try{
+			MailSender.sendEmail("工资查询系统密码重置",ConfigUtils.getConfig("reset_api_url")+uuid, new String[]{email});
+		}catch(Exception e){
+			return null;
+		}
+		return uuid;
 	}
 
 }

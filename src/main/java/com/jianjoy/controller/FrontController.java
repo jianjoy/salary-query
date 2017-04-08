@@ -43,6 +43,7 @@ import com.jianjoy.utils.ClientIpUtils;
 import com.jianjoy.utils.ConfigUtils;
 import com.jianjoy.utils.Md5Utils;
 import com.jianjoy.utils.StringUtils;
+import com.sun.mail.imap.protocol.BODY;
 
 /**
  * api 服务
@@ -114,10 +115,14 @@ public class FrontController {
 		ModelAndView mv = new ModelAndView();
 		String authToken = (String) request.getSession(true).getAttribute("x-token");
 		String viewName = request.getParameter("t");
-		if (authToken != null && authToken.trim().length() > 0) {
-			mv.setViewName(viewName != null && viewName.trim().length() > 0 ? "/" + viewName : "/salaryinfo");
-		} else {
-			mv.setViewName("/login");
+		if(viewName!=null&&viewName.equals("resetpass")){
+			mv.setViewName("/resetpass");
+		}else{
+			if (authToken != null && authToken.trim().length() > 0) {
+				mv.setViewName(viewName != null && viewName.trim().length() > 0 ? "/" + viewName : "/salaryinfo");
+			} else {
+				mv.setViewName("/login");
+			}
 		}
 		return mv;
 	}
@@ -386,6 +391,42 @@ public class FrontController {
 		accountBiz.updateAccountStatus(accountId,0);
 		jsonObjectResult.put("Result", "OK");
 		return renderJson(jsonObjectResult);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/api/resetPass.do", method = { RequestMethod.POST})
+	public String resetPass(HttpServletRequest request,HttpServletResponse response){
+		String email = request.getParameter("email");
+		BusinessResult<Account> result = accountBiz.validateAccount(email);
+		if(result.getData()==null){
+			return renderJson(getErrorResult(result.getError()));
+		}
+		String newPass = request.getParameter("pass");
+		String uuid = accountBiz.sendResetPassMail(email);
+		if(uuid!=null){
+			request.getSession(true).setAttribute(uuid,result.getData().getId()+"_"+newPass);
+		}
+		BusinessResult<Boolean> successResult = new BusinessResult<>();
+		successResult.setData(true);
+		return renderJson(getResult(successResult));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/api/resetPass2.do", method = { RequestMethod.GET,RequestMethod.POST})
+	public ModelAndView resetPass2(HttpServletRequest request,HttpServletResponse response){
+		String uuid = request.getParameter("k");
+		HttpSession session = request.getSession(true);
+		Object atr = session.getAttribute(uuid);
+		int status = 0;
+		if(uuid!=null&&atr!=null){
+			String[] datas =atr.toString().split("_");
+			accountBiz.updatePass(Integer.parseInt(datas[0]), datas[1]);
+			status=1;
+			session.removeAttribute(uuid);
+		}
+		request.setAttribute("status", status);
+		return new ModelAndView("resetpass2");
 	}
 	
 	

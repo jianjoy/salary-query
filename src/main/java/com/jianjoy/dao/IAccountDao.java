@@ -50,5 +50,13 @@ public interface IAccountDao {
 	 * @param status
 	 */
 	void updateAccountStatus(int accId,int status);
+	
+	
+	/**
+	 * 获取账户
+	 * @param email
+	 * @return
+	 */
+	Account getAccount(String email);
 
 }

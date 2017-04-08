@@ -32,6 +32,8 @@
 			<mvc:exclude-mapping path="/front/api/login.do" />
 			<mvc:exclude-mapping path="/front/api/logout.do" />
 			<mvc:exclude-mapping path="/front/api/index.do" />
+			<mvc:exclude-mapping path="/front/api/resetPass.do" />
+			<mvc:exclude-mapping path="/front/api/resetPass2.do" />
 			<bean class="com.jianjoy.controller.FrontAuthInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>

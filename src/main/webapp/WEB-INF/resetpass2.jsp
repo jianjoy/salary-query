@@ -4,10 +4,6 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String authToken = (String)request.getSession(true).getAttribute("x-token");
-if(authToken!=null&&authToken.trim().length()>0){
-	response.sendRedirect(basePath+"front/api/index.do");
-}
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +50,13 @@ if(authToken!=null&&authToken.trim().length()>0){
 	<link rel="shortcut icon" href="img/favicon.ico">
 		
 </head>
-
+<%
+Object attr = request.getAttribute("status");
+int status = 0;
+if(attr!=null){
+	status = Integer.parseInt(attr.toString());
+}
+%>
 <body>
 		<div class="container-fluid">
 		<div class="row-fluid">
@@ -68,26 +70,9 @@ if(authToken!=null&&authToken.trim().length()>0){
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info">
-						请输入用户名和密码.
+						重置密码<%=(status==1?"成功":"失败")%>!
 					</div>
-					<form class="form-horizontal" action="font/api/login.do">
-						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="uname" id="username" type="text" />
-							</div>
-							<div class="clearfix"></div>
-
-							<div class="input-prepend" title="Password" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="upass" id="password" type="password" />
-							</div>
-							<div class="clearfix"></div>
-							<div class="clearfix"></div>
-							<p class="center span5">
-							<button type="button" class="btn btn-primary" onclick="login()">登&nbsp;&nbsp;&nbsp;录</button>
-							</p>
-						</fieldset>
-						<a href="front/api/index.do?t=resetpass">忘记密码</a>
-					</form>
+					
 				</div><!--/span-->
 			</div><!--/row-->
 				</div><!--/fluid-row-->
@@ -167,8 +152,18 @@ if(authToken!=null&&authToken.trim().length()>0){
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
-	<script src="js/login.js"></script>
 		
+	<%
+       if(status==1){	
+	%>
+	    <script>
+	    function jump(){
+	    	window.location='front/api/index.do?t=login';
+	    }
+	       setTimeout('jump()', 3000 )    
+	    </script>
+	
+	<%} %>
 </body>
 </html>
 

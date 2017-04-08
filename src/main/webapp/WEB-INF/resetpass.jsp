@@ -68,17 +68,17 @@ if(authToken!=null&&authToken.trim().length()>0){
 			<div class="row-fluid">
 				<div class="well span5 center login-box">
 					<div class="alert alert-info">
-						请输入用户名和密码.
+						重置密码.
 					</div>
-					<form class="form-horizontal" action="font/api/login.do">
+					<form class="form-horizontal">
 						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="uname" id="username" type="text" />
+							<div class="input-prepend" title="邮箱" data-rel="tooltip">
+								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="email" id="email" type="text" />
 							</div>
 							<div class="clearfix"></div>
 
-							<div class="input-prepend" title="Password" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="upass" id="password" type="password" />
+							<div class="input-prepend" title="修改密码" data-rel="tooltip">
+								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="pass" id="pass" type="password" />
 							</div>
 							<div class="clearfix"></div>
 							<div class="clearfix"></div>
@@ -86,7 +86,6 @@ if(authToken!=null&&authToken.trim().length()>0){
 							<button type="button" class="btn btn-primary" onclick="login()">登&nbsp;&nbsp;&nbsp;录</button>
 							</p>
 						</fieldset>
-						<a href="front/api/index.do?t=resetpass">忘记密码</a>
 					</form>
 				</div><!--/span-->
 			</div><!--/row-->
@@ -167,8 +166,33 @@ if(authToken!=null&&authToken.trim().length()>0){
 	<script src="js/jquery.history.js"></script>
 	<!-- application script for Charisma demo -->
 	<script src="js/charisma.js"></script>
-	<script src="js/login.js"></script>
 		
+	<script>
+	
+	function clearInput(){
+		$('#email').val('');
+		$('#pass').val('');
+	}
+	function login(){
+		jQuery.post('front/api/resetPass.do','email='+$('#email').val()+'&pass='+$('#pass').val(),function(data){
+			if(data!=null){
+				if(data.status!='success'){
+					clearInput();
+					alert(data.message);
+				}else{
+					clearInput();
+					alert('重置成功，已经发送到你的邮箱');
+				}
+			}else{
+				clearInput();
+				alert('重置密码失败！');
+			}
+		
+			
+		},'json');
+	}
+	
+	</script>
 </body>
 </html>
 

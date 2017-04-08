@@ -39,11 +39,11 @@ public interface IAccountBusiness {
 	BusinessResult<Boolean> updatePass(int accountId,String newPass);
 	
 	/**
-	 * 重置密码
-	 * @param accountId
+	 * 验证账户
+	 * @param email
 	 * @return
 	 */
-	BusinessResult<Boolean> resetPass(int accountId);
+	BusinessResult<Account> validateAccount(String email);
 	
 	
 	/**
@@ -62,6 +62,13 @@ public interface IAccountBusiness {
 	 * @return
 	 */
 	BusinessResult<Boolean> addAccount(String uname,String upass,int empId,AccountRoleType type);
+	
+	/**
+	 * 发送重置密码邮件
+	 * @param email
+	 * @return
+	 */
+	String sendResetPassMail(String email);
 	
 	
 }
