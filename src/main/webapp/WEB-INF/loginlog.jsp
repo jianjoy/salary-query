@@ -32,7 +32,7 @@
 								<label class="control-label" for="appendedInput">登录ip</label>
 								<div class="controls">
 								  <div class="input-append">
-									<input id="appendedInput" size="16" type="text" name="ip">
+									<input id="prependedInput" size="16" type="text" name="ip">
 								  </div>
 								</div>
 							  </div>
@@ -58,7 +58,7 @@
 						</form>
 						
 							<div style="text-align: center;">
-	                       	<div id="jtcontainer" style="width:60%"></div>
+	                       	<div id="jtcontainer" style="width:80%"></div>
 	                        </div>
 					</div>
 				</div><!--/span-->
@@ -86,7 +86,7 @@
 		$('#jtcontainer').jtable({
 			title : '登录日志列表',
 			paging : true, //Enable paging
-			pageSize : 20, //Set page size (default: 10)           
+			pageSize : 10, //Set page size (default: 10)           
 			actions : {
 				listAction : 'front/api/queryLog.do'
 			},

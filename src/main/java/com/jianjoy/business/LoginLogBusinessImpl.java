@@ -32,7 +32,7 @@ public class LoginLogBusinessImpl implements ILoginLogBusiness {
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			for(LoginLogDbDataModel dbBean :dbList){
 				Map<String,Object> data = new HashMap<String, Object>();
-				LoginLog log = dbBean.getLoginLog();
+				LoginLog log = dbBean.getModel();
 				data.put("id", log.getId());
 				String uname = "";
 				if(log.getAccount()!=null){

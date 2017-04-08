@@ -7,7 +7,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.jianjoy.dao.dbbean.AbstractDbDataBean;
 import com.jianjoy.log.DbAccess;
 import com.jianjoy.model.Pager;
@@ -21,7 +20,6 @@ public abstract class BasePageDao implements IPageDao {
 		} catch (Exception e) {
 			throw new RuntimeException("clz :" + clz + " init error");
 		}
-		
 		Connection con = JDBCUtils.connect();
 		String execSql = sql;
 		String countSql = null;

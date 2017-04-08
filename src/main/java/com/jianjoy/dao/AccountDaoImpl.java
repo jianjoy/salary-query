@@ -3,13 +3,17 @@ package com.jianjoy.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.jianjoy.dao.dbbean.AccountInfoDbDataModel;
 import com.jianjoy.log.DbAccess;
 import com.jianjoy.model.Account;
 import com.jianjoy.model.AccountRoleType;
 import com.jianjoy.model.EmployeeInfo;
+import com.jianjoy.model.Pager;
 
-public class AccountDaoImpl implements IAccountDao {
+public class AccountDaoImpl extends BasePageDao implements IAccountDao {
 
 	
 	@Override
@@ -32,6 +36,7 @@ public class AccountDaoImpl implements IAccountDao {
 				account.setStatus(1);
 				account.setUname(rs.getString(2));
 				account.setRoleType(AccountRoleType.findRoleType(rs.getInt(3)));
+				account.setPass(md5Pass);
 				EmployeeInfo emp = new EmployeeInfo();
 				account.setEmployeeInfo(emp);
 				emp.setDepartment(rs.getString(4));
@@ -49,4 +54,40 @@ public class AccountDaoImpl implements IAccountDao {
 		return account;
 	}
 
+	@Override
+	public List<AccountInfoDbDataModel> getListByPage(Pager pager) {
+		String sql = "select acc.id as id,acc.uname as uname,acc.account_role_type,acc.status,e.department,e.identity_no,e.name,e.sex,e.ctime,e.email from account acc inner join employee_info e on e.id=acc.emp_id";
+		return findByPager(AccountInfoDbDataModel.class, sql, null, pager, true);
+	}
+
+	@Override
+	public void updatePass(int accountId, String newPass) {
+		String sql = "update account set pass=? where id=? ";
+		List<Object> params = new ArrayList<>();
+		params.add(newPass);
+		params.add(accountId);
+		JDBCUtils.executeUpdate(JDBCUtils.connect(), sql, params);
+	}
+
+	@Override
+	public void saveAccount(String uname, String upass, int empId, int type) {
+		String sql = "insert into account(uname,pass,emp_id,account_role_type,status) values(?,?,?,?,?)";
+		List<Object> params = new ArrayList<>();
+		params.add(uname);
+		params.add(upass);
+		params.add(empId);
+		params.add(type);
+		params.add(1);
+		JDBCUtils.executeUpdate(JDBCUtils.connect(), sql, params);
+	}
+
+	@Override
+	public void updateAccountStatus(int accId, int status) {
+		String sql = "update account set status =? where id=?";
+		List<Object> params = new ArrayList<>();
+		params.add(status);
+		params.add(accId);
+		JDBCUtils.executeUpdate(JDBCUtils.connect(), sql, params);
+	}
+	
 }

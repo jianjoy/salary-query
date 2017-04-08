@@ -2,11 +2,9 @@ package com.jianjoy.business;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.jianjoy.dao.EmployeeInfoDaoImpl;
 import com.jianjoy.dao.IEmployeeInfoDao;
 import com.jianjoy.dao.dbbean.EmployeeInfoDbDataModel;
@@ -28,7 +26,9 @@ public class EmployeBusinessImpl implements IEmployeeBusiness {
 
 	@Override
 	public BusinessResult<Boolean> add(EmployeeInfo info) {
-		return null;
+		BusinessResult<Boolean> result = new BusinessResult<>();
+		dao.save(info);
+		return result;
 	}
 
 	@Override
@@ -45,7 +45,9 @@ public class EmployeBusinessImpl implements IEmployeeBusiness {
 				map.put("id", info.getId());
 				map.put("department", info.getDepartment());
 				map.put("identityNo", info.getIdentityNo());
-				map.put("regDate", dateFormat2.format(info.getRegDate()));
+				if(info.getRegDate()!=null){
+					map.put("regDate", dateFormat2.format(info.getRegDate()));
+				}
 				map.put("name", info.getName());
 				map.put("sex", info.getSex()==1?"男":"女");
 				map.put("ctime", dateFormat.format(info.getCtime()));
@@ -55,12 +57,7 @@ public class EmployeBusinessImpl implements IEmployeeBusiness {
 		}
 		JTablePage jtp = new JTablePage(infos, pager);
 		return jtp.buildJsonString();
-		
 	}
 	
-	
-	
-	
-
 }
  

@@ -2,7 +2,7 @@ package com.jianjoy.dao.dbbean;
 
 import com.jianjoy.model.SalaryInfoExcelModel;
 
-public class SalaryInfoDbDataModel extends AbstractDbDataBean {
+public class SalaryInfoDbDataModel extends AbstractDbDataBean<SalaryInfoExcelModel> {
 
 	private SalaryInfoExcelModel model = new SalaryInfoExcelModel();
 	

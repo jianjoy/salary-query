@@ -3,6 +3,7 @@ package com.jianjoy.dao;
 import java.util.List;
 
 import com.jianjoy.dao.dbbean.EmployeeInfoDbDataModel;
+import com.jianjoy.model.EmployeeInfo;
 import com.jianjoy.model.Pager;
 
 /**
@@ -14,5 +15,7 @@ public interface IEmployeeInfoDao {
 
 	
 	List<EmployeeInfoDbDataModel> query(String department,String name,String email,Pager pager);
+	
+	void save(EmployeeInfo e);
 	
 }

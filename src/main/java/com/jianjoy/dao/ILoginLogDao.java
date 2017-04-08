@@ -30,5 +30,8 @@ public interface ILoginLogDao {
 	 * @return
 	 */
 	List<LoginLogDbDataModel> query(Account accountInfo,String ip,String startTime,String endTime,Pager pager);
+	
+	
+
 
 }

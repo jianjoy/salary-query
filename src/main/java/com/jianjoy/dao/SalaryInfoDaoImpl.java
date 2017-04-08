@@ -71,7 +71,6 @@ public class SalaryInfoDaoImpl extends BasePageDao implements ISalaryInfoDao {
 		if(StringUtils.hasLength(endDate)){
 			sqlBuilder.append(" and salary_date <= '"+endDate+"'");
 		}
-		System.out.println(sqlBuilder);		
 		String sql = sqlBuilder.toString();
 		return findByPager(SalaryInfoDbDataModel.class, sql, params, pager, true);
 	}

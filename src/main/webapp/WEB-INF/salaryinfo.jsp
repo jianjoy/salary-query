@@ -39,7 +39,7 @@
 						</form>
 						
 							<div style="text-align: center;">
-	                       	<div id="jtcontainer" style="width:60%"></div>
+	                       	<div id="jtcontainer" style="width:80%"></div>
 	                        </div>
 					</div>
 				</div><!--/span-->
@@ -72,48 +72,48 @@
 				},
 				salary:{
 				   title: '工资金额',
-				   width:'3%'
+				   width:'10%'
 				}
 				,
 				bonus:{
 				   title: '奖金',
-				   width:'3%'
+				   width:'10%'
 				},
 				absentSalaryDeduction:{
 				   title: '事假金额',
-				   width:'3%'
+				   width:'10%'
 				},
 				sickLeaveSalaryDeduction:{
 				   title: '病假金额',
-				   width:'3%'
+				   width:'10%'
 				},
 				personPensionPayment:{
 				   title: '个人养老金',
-				   width:'3%'
+				   width:'10%'
 				},
 				personMedicalInsurancePayment:{
 				   title: '个人医保基金',
-				   width:'3%'
+				   width:'10%'
 				},
 				personalIncomeTax:{
 				   title: '个人所得税',
-				   width:'3%'
+				   width:'10%'
 				},
 				personalIncomeTax:{
 				   title: '个人所得税',
-				   width:'3%'
+				   width:'10%'
 				},
 				personalProvidentFund:{
 				   title: '个人公积金',
-				   width:'3%'
+				   width:'10%'
 				},
 				realSalary:{
 				   title: '实发工资金额',
-				   width:'3%'
+				   width:'10%'
 				},
 				salaryDate:{
 				   title:'工资月份',
-				   width:'3%'
+				   width:'10%'
 				}
 				
 				

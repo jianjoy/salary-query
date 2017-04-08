@@ -55,11 +55,7 @@ public class LoginLogDaoImpl extends BasePageDao implements ILoginLogDao{
 		return findByPager(LoginLogDbDataModel.class, sqlBuilder.toString(), params, pager, Boolean.TRUE);
 	}
 	
-	public static void main(String[] args) {
-		Pager pager = new Pager();
-		pager.setPageSize(2);
-		List<LoginLogDbDataModel> list = new LoginLogDaoImpl().query(null, null, null, null, pager);
-		System.out.println(pager);
-	}
+
+	
 
 }

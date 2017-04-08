@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import com.jianjoy.model.Account;
 import com.jianjoy.model.LoginLog;
 
-public class LoginLogDbDataModel  extends AbstractDbDataBean{
+public class LoginLogDbDataModel  extends AbstractDbDataBean<LoginLog>{
 
 	private LoginLog  loginLog = new LoginLog();
 	
@@ -24,7 +24,8 @@ public class LoginLogDbDataModel  extends AbstractDbDataBean{
 		}
 	}
 	
-	public LoginLog getLoginLog() {
+	@Override
+	public LoginLog getModel() {
 		return loginLog;
 	}
 

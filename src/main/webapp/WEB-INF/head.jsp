@@ -1,3 +1,4 @@
+<%@page import="com.jianjoy.model.AccountRoleType"%>
 <%@page import="com.jianjoy.model.Account"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -132,16 +133,36 @@ body {
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Main</li>
-						<li><a class="ajax-link" href="front/api/index.do?t=salaryinfo"><i
-								class="icon-home"></i><span class="hidden-tablet">查看工资信息</span></a></li>
-						<li><a class="ajax-link" href="ui.html"><i
+						<li><a class="ajax-link"
+							href="front/api/index.do?t=salaryinfo"><i class="icon-home"></i><span
+								class="hidden-tablet">查看工资信息</span></a></li>
+						<li><a class="ajax-link"
+							href="front/api/index.do?t=updatepass"><i class="icon-edit"></i><span
+								class="hidden-tablet">修改密码</span></a></li>
+
+						<%
+							if (accountInfo.getRoleType() == AccountRoleType.ADMIN) {
+						%>
+						<li><a class="ajax-link"
+							href="front/api/index.do?t=employeeinfo"><i class="icon-edit"></i><span
+								class="hidden-tablet">员工信息维护</span></a></li>
+						<li><a class="ajax-link"
+							href="front/api/index.do?t=accountlist"><i
 								class="icon-eye-open"></i><span class="hidden-tablet">账号信息维护</span></a></li>
-						<li><a class="ajax-link" href="front/api/index.do?t=employeeinfo"><i
-								class="icon-edit"></i><span class="hidden-tablet">员工信息维护</span></a></li>
+
 						<li><a class="ajax-link" href="front/api/index.do?t=loginlog"><i
 								class="icon-list-alt"></i><span class="hidden-tablet">登录日志信息</span></a></li>
+						<%
+							}
+						%>
+						<%
+							if (accountInfo.getRoleType() == AccountRoleType.FINANCE) {
+						%>
 						<li><a class="ajax-link" href="front/api/index.do?t=upload"><i
 								class="icon-font"></i><span class="hidden-tablet">工资信息导入</span></a></li>
+						<%
+							}
+						%>
 					</ul>
 				</div>
 				<!--/.well -->

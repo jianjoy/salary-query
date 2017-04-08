@@ -11,7 +11,7 @@ import com.jianjoy.model.EmployeeInfo;
  * @version 创建时间：2017年4月1日 下午5:29:49
  * 
  */
-public class EmployeeInfoDbDataModel extends AbstractDbDataBean {
+public class EmployeeInfoDbDataModel extends AbstractDbDataBean<EmployeeInfo> {
 	
 	private EmployeeInfo model = new EmployeeInfo();
 
