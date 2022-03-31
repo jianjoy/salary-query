@@ -9,7 +9,7 @@
 	<description />
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.springframework.version>4.3.6.RELEASE</org.springframework.version>
+		<org.springframework.version>5.3.18</org.springframework.version>
 		<!-- <org.springframework.version1>3.2.1.RELEASE</org.springframework.version1> -->
 		<hibernate.version>4.0.1.Final</hibernate.version>
 		<mysql.connector.version>5.1.18</mysql.connector.version>
